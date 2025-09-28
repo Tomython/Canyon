@@ -1,0 +1,14 @@
+# Blender 4.2.1 LTS MTL File: 'None'
+# www.blender.org
+
+newmtl Material.001
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd /Users/tomython/Downloads/18798ed73f24855721341ae36c6ba477/texture_pbr_v128.png
+map_Ns /Users/tomython/Downloads/18798ed73f24855721341ae36c6ba477/texture_pbr_v128_roughness.png
+map_refl /Users/tomython/Downloads/18798ed73f24855721341ae36c6ba477/texture_pbr_v128_metallic.png
+map_Bump -bm 1.000000 /Users/tomython/Downloads/18798ed73f24855721341ae36c6ba477/texture_pbr_v128_normal.png

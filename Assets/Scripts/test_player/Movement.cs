@@ -9,7 +9,9 @@ public class Movement : MonoBehaviour
     [Header("Movement")]
     public float moveSpeed = 5f;
     public float jumpForce = 5f;
-    public Animator animator;
+    public Animator[] animators;
+
+    public bool isRotationEnabled;
 
 
     [Header("Look")]
@@ -22,7 +24,9 @@ public class Movement : MonoBehaviour
 
     void Start()
     {
-        animator = GetComponentInChildren<Animator>();
+        isRotationEnabled = true;
+
+        animators = GetComponentsInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
@@ -38,6 +42,25 @@ public class Movement : MonoBehaviour
         Jump();
     }
 
+    void SetBoolAll(Animator[] animators, string paramName, bool value) {
+        foreach (var anim in animators) {
+            anim.SetBool(paramName, value);
+        }
+    }
+
+    void SetTriggerAll(Animator[] animators, string paramName) {
+        foreach (var anim in animators) {
+            anim.SetTrigger(paramName);
+        }
+    }
+
+    void SetFloatAll(Animator[] animators, string paramName, float value) {
+        foreach (var anim in animators) {
+            anim.SetFloat(paramName, value);
+        }
+    }
+
+
     void Look()
     {
         Vector2 delta = Mouse.current.delta.ReadValue();
@@ -45,7 +68,9 @@ public class Movement : MonoBehaviour
         float mouseY = delta.y * mouseSensitivity;
 
         // вращаем тело по горизонтали
-        transform.Rotate(Vector3.up * mouseX);
+        if (isRotationEnabled) {
+            transform.Rotate(Vector3.up * mouseX);
+        }
 
         // вращаем камеру по вертикали
         pitch -= mouseY;
@@ -62,7 +87,7 @@ public class Movement : MonoBehaviour
         if (Keyboard.current.dKey.isPressed) dir += transform.right;
 
         float speed = dir.magnitude;
-        animator.SetFloat("Speed", speed);
+        SetFloatAll(animators, "Speed", speed);
 
         dir.Normalize();
         rb.MovePosition(rb.position + dir * moveSpeed * Time.deltaTime);
@@ -74,7 +99,7 @@ public class Movement : MonoBehaviour
 
         if (Keyboard.current.spaceKey.wasPressedThisFrame && isGrounded)
         {
-            animator.SetTrigger("jump");
+            SetTriggerAll(animators, "jump");
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
     }
@@ -83,11 +108,11 @@ public class Movement : MonoBehaviour
     {
         if (!isGrounded)
         {
-            animator.SetBool("fall", true);
+            SetBoolAll(animators, "fall", true);
         }
         else
         {
-            animator.SetBool("fall", false);
+            SetBoolAll(animators, "fall", false);
         }
     }
 }

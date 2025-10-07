@@ -59,16 +59,16 @@ MonoBehaviour:
   active: 1
   enabled:
     overrideState: 1
-    value: 0
+    value: 1
   filtering:
     overrideState: 1
-    value: {x: 1, y: 99}
+    value: {x: 55.212765, y: 68.76595}
   minLuminance:
     overrideState: 1
     value: 0
   maxLuminance:
     overrideState: 1
-    value: 8.26
+    value: 1.8
   keyValue:
     overrideState: 1
     value: 1
